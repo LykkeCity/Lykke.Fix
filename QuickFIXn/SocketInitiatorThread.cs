@@ -4,6 +4,7 @@ using System.Threading;
 using System.IO;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace QuickFix
 {
@@ -120,7 +121,9 @@ namespace QuickFix
         /// <summary>
         /// Keep a handle to the current outstanding read request (if any)
         /// </summary>
-        private IAsyncResult currentReadRequest_;
+        ///private IAsyncResult currentReadRequest_;
+        private Task<int> currentReadRequest_;
+
         /// <summary>
         /// Reads data from the network into the specified buffer.
         /// It will wait up to the specified number of milliseconds for data to arrive,
@@ -138,10 +141,11 @@ namespace QuickFix
             {
                 // Begin read if it is not already started
                 if (currentReadRequest_ == null)
-                    currentReadRequest_ = stream_.BeginRead(buffer, 0, buffer.Length, null, null);
+                    currentReadRequest_ = stream_.ReadAsync(buffer, 0, buffer.Length); //HACK?
 
                 // Wait for it to complete (given timeout)
-                currentReadRequest_.AsyncWaitHandle.WaitOne(timeoutMilliseconds);
+                //currentReadRequest_.AsyncWaitHandle.WaitOne(timeoutMilliseconds);
+                currentReadRequest_.Wait(timeoutMilliseconds);
 
                 if (currentReadRequest_.IsCompleted)
                 {
@@ -150,7 +154,7 @@ namespace QuickFix
                     var request = currentReadRequest_;
                     currentReadRequest_ = null;
 
-                    int bytesRead = stream_.EndRead(request);
+                    int bytesRead = request.Result; //stream_.EndRead(request);
                     if (0 == bytesRead)
                         throw new SocketException(System.Convert.ToInt32(SocketError.ConnectionReset));
 
@@ -197,8 +201,7 @@ namespace QuickFix
         public void Disconnect()
         {
             isDisconnectRequested_ = true;
-            if (stream_ != null)
-                stream_.Close();
+            stream_?.Dispose(); //stream_.Close();
         }
 
         #endregion

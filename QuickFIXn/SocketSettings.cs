@@ -103,7 +103,7 @@ namespace QuickFix
         public SocketSettings()
         {
             ValidateCertificates = true;
-            SslProtocol = SslProtocols.Default;
+            SslProtocol = SslProtocols.Tls; //SslProtocols.Default; //HACK?
             CheckCertificateRevocation = true;
             RequireClientCertificate = true;
         }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace QuickFix
 {
@@ -72,7 +72,7 @@ namespace QuickFix
                 else if ("FIX.5.0SP2".Equals(beginString))
                     return ApplVerID.FIX50SP2;
                 else
-                    return string.Copy(beginString);
+                    return beginString;
             }
         }
 

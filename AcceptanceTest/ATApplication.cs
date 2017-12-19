@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using QuickFix;
 
+
 namespace AcceptanceTest
 {
     public class ATApplication : MessageCracker, IApplication
@@ -8,9 +9,9 @@ namespace AcceptanceTest
         public event System.Action StopMeEvent;
 
         private HashSet<KeyValuePair<string, SessionID>> clOrdIDs_ = new HashSet<KeyValuePair<string, SessionID>>();
-        private FileLog log_;
+        private ILog log_;
 
-        public ATApplication(FileLog debugLog)
+        public ATApplication(ILog debugLog)
         {
             log_ = debugLog;
         }

@@ -63,7 +63,7 @@ namespace UnitTests
 
                 sf.Tag = IntParse(field.Substring(0, tagIndex));
                 sf.Obj = field.Substring(tagIndex + 1);
-                m.setField(sf);
+                m.SetField(sf);
             }
             else return;
 
@@ -80,7 +80,7 @@ namespace UnitTests
 
                 sf2.Tag = IntParse(field.Substring(0, tagIndex));
                 sf2.Obj = field.Substring(tagIndex + 1);
-                m.setField(sf2);
+                m.SetField(sf2);
             }
         }
 
@@ -95,7 +95,7 @@ namespace UnitTests
             for (int i = 0; i < times; i++)
             {
                 Message m = new Message();
-                m.FromString(fix);
+                m.FromString(fix, false, null, null);
             }
             timer.Stop();
             Console.WriteLine("Total per second [new parser]: " + ((1 / timer.Duration) * times).ToString());
@@ -251,7 +251,7 @@ namespace UnitTests
         /// </summary>
         /// <param name="stringToConvert"></param>
         /// <returns></returns>
-        public unsafe static int IntParse(string stringToConvert)
+        public static unsafe int IntParse(string stringToConvert)
         {
             int value = 0;
             int length = stringToConvert.Length;

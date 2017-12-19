@@ -138,8 +138,7 @@ namespace QuickFix.Transport
         {
 
             // Get the certificate store for the current user.
-            X509Store store = new X509Store(StoreLocation.CurrentUser);
-            try
+            using(X509Store store = new X509Store(/*StoreLocation.CurrentUser*/))
             {
                 store.Open(OpenFlags.ReadOnly);
 
@@ -159,10 +158,6 @@ namespace QuickFix.Transport
 
                 // Return the first certificate in the collection, has the right name and is current. 
                 return currentCerts[0];
-            }
-            finally
-            {
-                store.Close();
             }
 
         }
@@ -197,10 +192,10 @@ namespace QuickFix.Transport
                 {
                     // Setup secure SSL Communication
                     var clientCertificates = GetClientCertificates();
-                    sslStream.AuthenticateAsClient(socketSettings_.ServerCommonName,
+                    sslStream.AuthenticateAsClientAsync(socketSettings_.ServerCommonName,
                         clientCertificates,
                         socketSettings_.SslProtocol,
-                        socketSettings_.CheckCertificateRevocation);
+                        socketSettings_.CheckCertificateRevocation).Wait(); // HACK?; await
                 }
                 catch (System.Security.Authentication.AuthenticationException ex)
                 {
@@ -227,10 +222,11 @@ namespace QuickFix.Transport
 
                     // Setup secure SSL Communication
                     var serverCertificate = StreamFactory.LoadCertificate(socketSettings_.CertificatePath, socketSettings_.CertificatePassword);
-                    sslStream.AuthenticateAsServer(serverCertificate,
+                    sslStream.AuthenticateAsServerAsync(serverCertificate,
                         socketSettings_.RequireClientCertificate,
                         socketSettings_.SslProtocol,
-                        socketSettings_.CheckCertificateRevocation);
+                        socketSettings_.CheckCertificateRevocation)
+                             .Wait(); // TODO: await
                 }
                 catch (System.Security.Authentication.AuthenticationException ex)
                 {
@@ -348,7 +344,7 @@ namespace QuickFix.Transport
                 X509Certificate2 cert2 = certificate as X509Certificate2;
 
                 if (cert2 == null)
-                    cert2 = new X509Certificate2(certificate);
+                    cert2 = new X509Certificate2(certificate.Export(X509ContentType.Cert));
 
                 foreach (X509Extension extension in cert2.Extensions)
                 {

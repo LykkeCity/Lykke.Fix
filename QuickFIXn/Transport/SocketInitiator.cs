@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net.Sockets;
-using QuickFix.Config;
 using System.Net;
 using System.Diagnostics;
 using System.Threading;
@@ -141,7 +140,7 @@ namespace QuickFix.Transport
             try
             {
                 var hostName = settings.GetString(hostKey);
-                IPAddress[] addrs = Dns.GetHostAddresses(hostName);
+                IPAddress[] addrs = Dns.GetHostAddressesAsync(hostName).Result; // HACK? await
                 int port = System.Convert.ToInt32(settings.GetLong(portKey));
                 sessionToHostNum_[sessionID] = ++num;
 
