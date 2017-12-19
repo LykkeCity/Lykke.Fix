@@ -1,4 +1,4 @@
-﻿
+
 using System;
 
 namespace QuickFix
@@ -90,11 +90,11 @@ namespace QuickFix
         public SessionID(string beginString, string senderCompID, string senderSubID, string senderLocationID, string targetCompID, string targetSubID, string targetLocationID, string sessionQualifier)
         {
             if (beginString == null)
-              throw new ArgumentNullException("beginString");
+                throw new ArgumentNullException("beginString");
             if (senderCompID == null)
-              throw new ArgumentNullException("senderCompID");
+                throw new ArgumentNullException("senderCompID");
             if (targetCompID == null)
-              throw new ArgumentNullException("targetCompID");
+                throw new ArgumentNullException("targetCompID");
             beginString_ = beginString;
             senderCompID_ = senderCompID;
             senderSubID_ = senderSubID;
@@ -106,14 +106,14 @@ namespace QuickFix
             isFIXT_ = beginString_.StartsWith("FIXT");
 
             id_ = beginString_
-                + ":"
-                + senderCompID_
-                + (IsSet(senderSubID_) ? "/" + senderSubID_ : "")
-                + (IsSet(senderLocationID_) ? "/" + senderLocationID_ : "")
-                + "->"
-                + targetCompID_
-                + (IsSet(targetSubID_) ? "/" + targetSubID_ : "")
-                + (IsSet(targetLocationID_) ? "/" + targetLocationID_ : "");
+                  + ":"
+                  + senderCompID_
+                  + (IsSet(senderSubID_) ? "/" + senderSubID_ : "")
+                  + (IsSet(senderLocationID_) ? "/" + senderLocationID_ : "")
+                  + "->"
+                  + targetCompID_
+                  + (IsSet(targetSubID_) ? "/" + targetSubID_ : "")
+                  + (IsSet(targetLocationID_) ? "/" + targetLocationID_ : "");
             if (null != sessionQualifier_ && sessionQualifier_.Length > 0)
                 id_ += ":" + sessionQualifier_;
         }

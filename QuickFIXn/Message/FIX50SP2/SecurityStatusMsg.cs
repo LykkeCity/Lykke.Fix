@@ -5,11 +5,11 @@ namespace QuickFix
 {
     namespace FIX50SP2 
     {
-        public class SecurityStatus : Message
+        public class SecurityStatusMsg : Message
         {
             public const string MsgType = "f";
 
-            public SecurityStatus() : base()
+            public SecurityStatusMsg() : base()
             {
                 this.Header.SetField(new QuickFix.Fields.MsgType("f"));
             }

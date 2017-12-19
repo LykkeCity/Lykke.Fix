@@ -1,12 +1,5 @@
-﻿
 namespace QuickFix
 {
-    /// <summary>
-    /// (Renamed per naming convention.)
-    /// </summary>
-    [System.Obsolete("Use IApplication instead.")]
-    public interface Application : IApplication { }
-
     /// <summary>
     /// This is the primary interface for processing session messages.
     /// </summary>

@@ -1,6 +1,7 @@
 ﻿using System.Net.Sockets;
 using System.IO;
 using System;
+using System.Threading.Tasks;
 
 namespace QuickFix
 {
@@ -21,7 +22,8 @@ namespace QuickFix
         /// <summary>
         /// Keep a handle to the current outstanding read request (if any)
         /// </summary>
-        private IAsyncResult currentReadRequest_;
+        //private IAsyncResult currentReadRequest_;
+        private Task<int> currentReadRequest_;
 
         [Obsolete("Use other constructor")]
         public SocketReader(TcpClient tcpClient, ClientHandlerThread responder)
@@ -79,10 +81,10 @@ namespace QuickFix
             {
                 // Begin read if it is not already started
                 if (currentReadRequest_ == null)
-                    currentReadRequest_ = stream_.BeginRead(buffer, 0, buffer.Length, null, null);
+                    currentReadRequest_ = stream_.ReadAsync(buffer, 0, buffer.Length); //HACK?
 
                 // Wait for it to complete (given timeout)
-                currentReadRequest_.AsyncWaitHandle.WaitOne(timeoutMilliseconds);
+                currentReadRequest_.Wait(timeoutMilliseconds);
 
                 if (currentReadRequest_.IsCompleted)
                 {
@@ -91,7 +93,7 @@ namespace QuickFix
                     var request = currentReadRequest_;
                     currentReadRequest_ = null;
 
-                    int bytesRead = stream_.EndRead(request);
+                    int bytesRead = request.Result;
                     if (0 == bytesRead)
                         throw new SocketException(System.Convert.ToInt32(SocketError.ConnectionReset));
 
@@ -205,14 +207,14 @@ namespace QuickFix
         [Obsolete("Static function can't close stream properly")]
         protected static void DisconnectClient(TcpClient client)
         {
-            client.Client.Close();
-            client.Close();
+            client.Client.Dispose();
+            client.Dispose();
         }
 
         protected void DisconnectClient()
         {
-            stream_.Close();
-            tcpClient_.Close();
+            stream_.Dispose();
+            tcpClient_.Dispose();
         }
 
         protected bool HandleNewSession(string msg)
@@ -320,7 +322,7 @@ namespace QuickFix
             if (disposing)
             {
                 stream_.Dispose();
-                tcpClient_.Close();
+                tcpClient_.Dispose();
             }
         }
     }

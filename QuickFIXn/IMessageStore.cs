@@ -6,12 +6,6 @@ namespace QuickFix
     /// FIXME v2 - property-ize all of these get/set functions
 
     /// <summary>
-    /// (Renamed per naming convention.)
-    /// </summary>
-    [System.Obsolete("Use IMessageStore instead.")]
-    public interface MessageStore : IMessageStore { }
-
-    /// <summary>
     /// Used by a Session to store and retrieve messages for resend purposes
     /// </summary>
     public interface IMessageStore : IDisposable

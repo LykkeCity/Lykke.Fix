@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -126,7 +126,7 @@ namespace QuickFix
                 int tagend = msgstr.IndexOf("=", pos);
                 int tag = Convert.ToInt32(msgstr.Substring(pos, tagend - pos));
                 pos = tagend + 1;
-                int fieldvalend = msgstr.IndexOf("\u0001", pos);
+                int fieldvalend = msgstr.IndexOf("\u0001", pos, StringComparison.Ordinal);
                 StringField field =  new StringField(tag, msgstr.Substring(pos, fieldvalend - pos));
 
                 /** TODO data dict stuff
@@ -395,7 +395,7 @@ namespace QuickFix
             bool expectingBody = true;
             int count = 0;
             int pos = 0;
-	        DataDictionary.IFieldMapSpec msgMap = null;
+            DataDictionary.IFieldMapSpec msgMap = null;
 
             while (pos < msgstr.Length)
             {
@@ -415,12 +415,12 @@ namespace QuickFix
 
                     if (Tags.MsgType.Equals(f.Tag))
                     {
-                        msgType = string.Copy(f.Obj);
+                        msgType = f.Obj;
                         if (appDD != null)
                         {
                             msgMap = appDD.GetMapForMessage(msgType);
                         }
-		            }
+                    }
 
                     if (!this.Header.SetField(f, false))
                         this.Header.RepeatedTags.Add(f);
@@ -705,8 +705,8 @@ namespace QuickFix
         {
             return (
                 (this.Header.CalculateTotal()
-                + CalculateTotal()
-                + this.Trailer.CalculateTotal()) % 256);
+                 + CalculateTotal()
+                 + this.Trailer.CalculateTotal()) % 256);
         }
 
         public bool IsAdmin()

@@ -1,4 +1,4 @@
-﻿
+
 namespace QuickFix
 {
     public class QuickFIXException : System.Exception
@@ -15,9 +15,9 @@ namespace QuickFix
             : base(msg, innerException)
         { }
 
-        public QuickFIXException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
-            : base(info, context)
-        { }
+//        public QuickFIXException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+//            : base(info, context)
+//        { }
     }
 
     /// <summary>
@@ -97,7 +97,7 @@ namespace QuickFix
     /// <summary>
     /// Not a recognizable message
     /// </summary>
-    [System.Serializable]
+    //[System.Serializable]
     public class InvalidMessage : QuickFIXException
     {
         public InvalidMessage()
@@ -112,9 +112,9 @@ namespace QuickFix
             : base("Invalid message: " + msg, innerException)
         { }
 
-        public InvalidMessage(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
-            : base(info, context)
-        { }
+//        public InvalidMessage(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+//            : base(info, context)
+//        { }
     }
 
     /// <summary>

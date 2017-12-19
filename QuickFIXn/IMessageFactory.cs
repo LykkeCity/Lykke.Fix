@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace QuickFix
+﻿namespace QuickFix
 {
     /// <summary>
     /// Used by Session to create a Message of the appropriate type.

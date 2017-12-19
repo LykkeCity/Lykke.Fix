@@ -740,7 +740,7 @@ namespace QuickFix
             int msgSeqNum = logon.Header.GetInt(Fields.Tags.MsgSeqNum);
             if (IsTargetTooHigh(msgSeqNum) && !resetSeqNumFlag.Obj)
             {
-                DoTargetTooHigh(logon, msgSeqNum);
+                //DoTargetTooHigh(logon, msgSeqNum); HACK?
             }
             else
             {
@@ -931,7 +931,8 @@ namespace QuickFix
 
         public bool Verify(Message message)
         {
-            return Verify(message, true, true);
+            //return Verify(message, true, true); HACK?
+            return Verify(message, false, true);
         }
 
         public bool Verify(Message msg, bool checkTooHigh, bool checkTooLow)
