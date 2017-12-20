@@ -2,6 +2,22 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Version>1.0.1</Version>
+    <PackageId>Lykke.Fix</PackageId>
+    <Authors>Lykke</Authors>
+    <Company>Lykke</Company>
+    <Product>Lykke.Fix</Product>
+    <Description>A fork of the QuickFixN library - https://github.com/connamara/quickfixn</Description>
+    <RepositoryUrl>https://github.com/LykkeCity/quickfixn.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIconUrl>https://avatars3.githubusercontent.com/u/14153330?v=3&amp;s=200</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/LykkeCity/quickfixn</PackageProjectUrl>
+    <PackageTags>Fix</PackageTags>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\QuickFix.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\QuickFix.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
@@ -10,13 +26,15 @@
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
     <PackageReference Include="System.Xml.XPath" Version="4.3.0" />
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.6.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="spec\FIX44.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
+  <ItemGroup Label="dotnet pack instructions">
+    <Content Include="$(OutputPath)$(AssemblyName).pdb">
+      <Pack>true</Pack>
+      <PackagePath>lib/netstandard2.0</PackagePath>
+    </Content>
   </ItemGroup>
 </Project>

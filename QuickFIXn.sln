@@ -5,9 +5,30 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickFix", "QuickFIXn\QuickFix.csproj", "{D67079DA-6C49-48B2-93AB-1C3E879F5A0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{186A72D8-5A70-4DD0-BABF-E3BB3BA9F419}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{186A72D8-5A70-4DD0-BABF-E3BB3BA9F419}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTest", "AcceptanceTest\AcceptanceTest.csproj", "{B02EAF78-6335-4996-BB98-3121A4B6B0B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTest", "AcceptanceTest\AcceptanceTest.csproj", "{B02EAF78-6335-4996-BB98-3121A4B6B0B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "spec", "spec", "{F24CC139-CDA7-4652-B2E7-40C79D73CD5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fix", "fix", "{87F4EBAE-DB3C-44EC-85EE-9F4E3F5170FD}"
+	ProjectSection(SolutionItems) = preProject
+		spec\fix\FIX40.xml = spec\fix\FIX40.xml
+		spec\fix\FIX41.xml = spec\fix\FIX41.xml
+		spec\fix\FIX42.xml = spec\fix\FIX42.xml
+		spec\fix\FIX43.xml = spec\fix\FIX43.xml
+		spec\fix\FIX44.xml = spec\fix\FIX44.xml
+		spec\fix\FIX50.xml = spec\fix\FIX50.xml
+		spec\fix\FIX50SP1.xml = spec\fix\FIX50SP1.xml
+		spec\fix\FIX50SP2.xml = spec\fix\FIX50SP2.xml
+		spec\fix\FIXT11.xml = spec\fix\FIXT11.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BB9A4C05-00A6-4F03-AD75-3D12F54DF9A6}"
+	ProjectSection(SolutionItems) = preProject
+		spec\test\FIX43_dup_enum.xml = spec\test\FIX43_dup_enum.xml
+		spec\test\required_is_optional.xml = spec\test\required_is_optional.xml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +51,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{87F4EBAE-DB3C-44EC-85EE-9F4E3F5170FD} = {F24CC139-CDA7-4652-B2E7-40C79D73CD5A}
+		{BB9A4C05-00A6-4F03-AD75-3D12F54DF9A6} = {F24CC139-CDA7-4652-B2E7-40C79D73CD5A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA34CD12-A900-4F7D-BFE8-0E177B30DB3E}
