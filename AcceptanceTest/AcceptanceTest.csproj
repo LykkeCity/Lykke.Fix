@@ -4,6 +4,9 @@
     <OutputType>Exe</OutputType>
     <ApplicationIcon />
     <StartupObject>AcceptanceTest.ATRunner</StartupObject>
+    <Version>1.0.2</Version>
+    <AssemblyVersion>1.2.2.0</AssemblyVersion>
+    <FileVersion>1.2.2.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuickFIXn\QuickFix.csproj" />
