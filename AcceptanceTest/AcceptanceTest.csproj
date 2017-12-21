@@ -8,6 +8,10 @@
     <AssemblyVersion>1.2.2.0</AssemblyVersion>
     <FileVersion>1.2.2.0</FileVersion>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <NoWarn>1701;1702;1705;1570;1591</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuickFIXn\QuickFix.csproj" />
   </ItemGroup>

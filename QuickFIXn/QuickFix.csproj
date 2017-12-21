@@ -21,15 +21,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\QuickFix.xml</DocumentationFile>
-    <NoWarn>1701;1702;1705;1570;1591</NoWarn>
+    <NoWarn>1701;1702;1705;1570;1591;1572;1573;1587;1574</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
-    <PackageReference Include="System.Net.Security" Version="4.3.2" />
-    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XPath" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
     <PackageReference Include="SourceLink.Create.CommandLine" Version="2.6.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
