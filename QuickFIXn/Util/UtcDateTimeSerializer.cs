@@ -30,18 +30,13 @@ namespace QuickFix.Util
         /// <returns></returns>
         static public DateTime FromString(string s)
         {
-            try
+            if (DateTime.TryParseExact(s, FORMAT,
+                System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.AdjustToUniversal, out var d))
             {
-                DateTime d = DateTime.ParseExact(s, FORMAT,
-                    System.Globalization.CultureInfo.InvariantCulture,
-                    System.Globalization.DateTimeStyles.AdjustToUniversal);
                 return d;
             }
-            catch (Exception)
-            {
-                return new DateTime(0L, DateTimeKind.Utc); // MinValue in UTC HACK?
-                //return DateTime.MinValue;
-            }
+            return new DateTime(0L, DateTimeKind.Utc);
         }
     }
 }

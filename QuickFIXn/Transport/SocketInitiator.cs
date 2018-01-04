@@ -140,7 +140,7 @@ namespace QuickFix.Transport
             try
             {
                 var hostName = settings.GetString(hostKey);
-                IPAddress[] addrs = Dns.GetHostAddressesAsync(hostName).Result; // HACK? await
+                IPAddress[] addrs = Dns.GetHostAddresses(hostName);
                 int port = System.Convert.ToInt32(settings.GetLong(portKey));
                 sessionToHostNum_[sessionID] = ++num;
 

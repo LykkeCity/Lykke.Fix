@@ -192,10 +192,10 @@ namespace QuickFix.Transport
                 {
                     // Setup secure SSL Communication
                     var clientCertificates = GetClientCertificates();
-                    sslStream.AuthenticateAsClientAsync(socketSettings_.ServerCommonName,
+                    sslStream.AuthenticateAsClient(socketSettings_.ServerCommonName,
                         clientCertificates,
                         socketSettings_.SslProtocol,
-                        socketSettings_.CheckCertificateRevocation).Wait(); // HACK?; await
+                        socketSettings_.CheckCertificateRevocation);
                 }
                 catch (System.Security.Authentication.AuthenticationException ex)
                 {

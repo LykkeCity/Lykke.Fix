@@ -4,7 +4,6 @@ using System.Threading;
 using System.IO;
 using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace QuickFix
 {
@@ -122,7 +121,7 @@ namespace QuickFix
         /// Keep a handle to the current outstanding read request (if any)
         /// </summary>
         ///private IAsyncResult currentReadRequest_;
-        private Task<int> currentReadRequest_;
+        private IAsyncResult currentReadRequest_;
 
         /// <summary>
         /// Reads data from the network into the specified buffer.
@@ -141,11 +140,11 @@ namespace QuickFix
             {
                 // Begin read if it is not already started
                 if (currentReadRequest_ == null)
-                    currentReadRequest_ = stream_.ReadAsync(buffer, 0, buffer.Length); //HACK?
+                    currentReadRequest_ = stream_.BeginRead(buffer, 0, buffer.Length, null, null);
 
                 // Wait for it to complete (given timeout)
-                //currentReadRequest_.AsyncWaitHandle.WaitOne(timeoutMilliseconds);
-                currentReadRequest_.Wait(timeoutMilliseconds);
+                currentReadRequest_.AsyncWaitHandle.WaitOne(timeoutMilliseconds);
+
 
                 if (currentReadRequest_.IsCompleted)
                 {
@@ -154,7 +153,7 @@ namespace QuickFix
                     var request = currentReadRequest_;
                     currentReadRequest_ = null;
 
-                    int bytesRead = request.Result; //stream_.EndRead(request);
+                    int bytesRead = stream_.EndRead(request);
                     if (0 == bytesRead)
                         throw new SocketException(System.Convert.ToInt32(SocketError.ConnectionReset));
 
@@ -201,7 +200,8 @@ namespace QuickFix
         public void Disconnect()
         {
             isDisconnectRequested_ = true;
-            stream_?.Dispose(); //stream_.Close();
+            if (stream_ != null)
+                stream_.Close();
         }
 
         #endregion

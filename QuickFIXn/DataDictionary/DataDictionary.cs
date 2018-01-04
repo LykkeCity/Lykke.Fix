@@ -64,11 +64,11 @@ namespace QuickFix.DataDictionary
 			this.FieldsByName = src.FieldsByName;
 			this.FieldsByTag = src.FieldsByTag;
 			if (null != src.MajorVersion)
-				this.MajorVersion = src.MajorVersion;
+				this.MajorVersion = string.Copy(src.MajorVersion);
 			if (null != src.MinorVersion)
-				this.MinorVersion = src.MinorVersion;
+				this.MinorVersion = string.Copy(src.MinorVersion);
 			if (null != src.Version)
-				this.Version = src.Version;
+				this.Version = string.Copy(src.Version);
 			this.CheckFieldsHaveValues = src.CheckFieldsHaveValues;
 			this.CheckFieldsOutOfOrder = src.CheckFieldsOutOfOrder;
 			this.CheckUserDefinedFields = src.CheckUserDefinedFields;
@@ -151,31 +151,19 @@ namespace QuickFix.DataDictionary
 			foreach (int field in Header.ReqFields)
 			{
 				if (!message.Header.IsSetField(field))
-				{
-					// TODO: LOG WARNING, 
-					// Exception commented out because ICM often response without required tags
-					//throw new RequiredTagMissing(field);
-				}
+					throw new RequiredTagMissing(field);
 			}
 
 			foreach (int field in Trailer.ReqFields)
 			{
 				if (!message.Trailer.IsSetField(field))
-				{
-					// TODO: LOG WARNING, 
-					// Exception commented out because ICM often response without required tags
-					//throw new RequiredTagMissing(field);
-				}
+					throw new RequiredTagMissing(field);
 			}
 
 			foreach (int field in Messages[msgType].ReqFields)
 			{
 				if (!message.IsSetField(field))
-				{
-					// TODO: LOG WARNING, 
-					// Exception commented out because ICM often response without required tags
-					//throw new RequiredTagMissing(field);
-				}
+					throw new RequiredTagMissing(field);
 			}
 
 			/** FIXME TODO group stuff
@@ -372,10 +360,7 @@ namespace QuickFix.DataDictionary
 			if (Messages.TryGetValue(msgType, out dd))
 				if (dd.Fields.ContainsKey(field.Tag))
 					return;
-			//throw new TagNotDefinedForMessage(field.Tag, msgType);
-			
-			// TODO: log error
-			return; // exception commented out for ICM non standart messages
+			throw new TagNotDefinedForMessage(field.Tag, msgType);
 		}
 
 		/// <summary>

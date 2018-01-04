@@ -63,7 +63,7 @@ namespace QuickFix
             else if (TimeZone == null)
                 return utc;
             else
-                return System.TimeZoneInfo.ConvertTime(utc, TimeZone); //HACK?
+                return System.TimeZoneInfo.ConvertTimeFromUtc(utc, TimeZone);
         }
 
         public bool IsSessionTime(System.DateTime utc)
@@ -140,7 +140,7 @@ namespace QuickFix
             if (UseLocalTime)
                 return n.ToUniversalTime();
             if (TimeZone != null)
-                return TimeZoneInfo.ConvertTime(n, this.TimeZone, TimeZoneInfo.Utc); //HACK?
+                return TimeZoneInfo.ConvertTimeBySystemTimeZoneId(n, this.TimeZone.Id, "UTC");
             return n;
         }
 

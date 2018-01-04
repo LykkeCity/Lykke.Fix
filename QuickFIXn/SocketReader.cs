@@ -22,8 +22,7 @@ namespace QuickFix
         /// <summary>
         /// Keep a handle to the current outstanding read request (if any)
         /// </summary>
-        //private IAsyncResult currentReadRequest_;
-        private Task<int> currentReadRequest_;
+        private IAsyncResult currentReadRequest_;
 
         [Obsolete("Use other constructor")]
         public SocketReader(TcpClient tcpClient, ClientHandlerThread responder)
@@ -81,10 +80,10 @@ namespace QuickFix
             {
                 // Begin read if it is not already started
                 if (currentReadRequest_ == null)
-                    currentReadRequest_ = stream_.ReadAsync(buffer, 0, buffer.Length); //HACK?
+                    currentReadRequest_ = stream_.BeginRead(buffer, 0, buffer.Length, null, null);
 
                 // Wait for it to complete (given timeout)
-                currentReadRequest_.Wait(timeoutMilliseconds);
+                currentReadRequest_.AsyncWaitHandle.WaitOne(timeoutMilliseconds);
 
                 if (currentReadRequest_.IsCompleted)
                 {
@@ -93,7 +92,7 @@ namespace QuickFix
                     var request = currentReadRequest_;
                     currentReadRequest_ = null;
 
-                    int bytesRead = request.Result;
+                    int bytesRead = stream_.EndRead(request);
                     if (0 == bytesRead)
                         throw new SocketException(System.Convert.ToInt32(SocketError.ConnectionReset));
 
@@ -207,14 +206,14 @@ namespace QuickFix
         [Obsolete("Static function can't close stream properly")]
         protected static void DisconnectClient(TcpClient client)
         {
-            client.Client.Dispose();
-            client.Dispose();
+            client.Client.Close();
+            client.Close();
         }
 
         protected void DisconnectClient()
         {
-            stream_.Dispose();
-            tcpClient_.Dispose();
+            stream_.Close();
+            tcpClient_.Close();
         }
 
         protected bool HandleNewSession(string msg)
