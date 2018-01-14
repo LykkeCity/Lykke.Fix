@@ -29,7 +29,7 @@
         {
             if (_logIncoming)
             {
-                _lykkeLog.WriteInfoAsync(nameof(LykkeQuickFixLog), nameof(OnIncoming), _sessionId.ToString(), msg.Replace("","")).Wait(); // The replace in not empty!
+                _lykkeLog.WriteInfoAsync(nameof(LykkeQuickFixLog), nameof(OnIncoming), _sessionId.ToString(), msg.Replace("\u0001","|")).Wait();
             }
         }
 
@@ -37,7 +37,7 @@
         {
             if (_logOutgoing)
             {
-                _lykkeLog.WriteInfoAsync(nameof(LykkeQuickFixLog), nameof(OnOutgoing), _sessionId.ToString(), msg.Replace("","")).Wait(); // The replace in not empty!
+                _lykkeLog.WriteInfoAsync(nameof(LykkeQuickFixLog), nameof(OnOutgoing), _sessionId.ToString(), msg.Replace("\u0001","|")).Wait();
             }
         }
 
