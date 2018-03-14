@@ -16,11 +16,31 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="NUnit" Version="3.9.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.9.0" />
+    <Compile Remove="PerformanceTests.cs" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\QuickFIXn\QuickFix.csproj" />
+    <Content Include="../spec/**/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>spec/%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Content>
   </ItemGroup>
+
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Folder Include="spec\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="foo_config.cfg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
