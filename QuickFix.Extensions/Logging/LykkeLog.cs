@@ -1,14 +1,16 @@
-﻿namespace QuickFix.Lykke
+﻿using QuickFix;
+
+namespace Lykke.QuickFix.Extensions.Logging
 {
-    internal sealed class LykkeQuickFixLog : ILog
+    internal sealed class LykkeLog : ILog
     {
-        private readonly Common.Log.ILog _lykkeLog;
+        private readonly global::Common.Log.ILog _lykkeLog;
         private readonly SessionID _sessionId;
         private readonly bool _logIncoming;
         private readonly bool _logOutgoing;
         private readonly bool _logEvents;
 
-        public LykkeQuickFixLog(Common.Log.ILog lykkeLog, SessionID sessionId, bool logIncoming, bool logOutgoing, bool logEvents)
+        public LykkeLog(global::Common.Log.ILog lykkeLog, SessionID sessionId, bool logIncoming, bool logOutgoing, bool logEvents)
         {
             _lykkeLog = lykkeLog;
             _sessionId = sessionId;
@@ -29,7 +31,7 @@
         {
             if (_logIncoming)
             {
-                _lykkeLog.WriteInfoAsync(nameof(LykkeQuickFixLog), nameof(OnIncoming), _sessionId.ToString(), msg.Replace("\u0001","|")).Wait();
+                _lykkeLog.WriteInfoAsync(nameof(LykkeLog), nameof(OnIncoming), _sessionId.ToString(), msg.Replace("\u0001","|")).Wait();
             }
         }
 
@@ -37,7 +39,7 @@
         {
             if (_logOutgoing)
             {
-                _lykkeLog.WriteInfoAsync(nameof(LykkeQuickFixLog), nameof(OnOutgoing), _sessionId.ToString(), msg.Replace("\u0001","|")).Wait();
+                _lykkeLog.WriteInfoAsync(nameof(LykkeLog), nameof(OnOutgoing), _sessionId.ToString(), msg.Replace("\u0001","|")).Wait();
             }
         }
 
@@ -45,7 +47,7 @@
         {
             if (_logEvents)
             {
-                _lykkeLog.WriteInfoAsync(nameof(LykkeQuickFixLog), nameof(OnEvent), _sessionId.ToString(), s).Wait();
+                _lykkeLog.WriteInfoAsync(nameof(LykkeLog), nameof(OnEvent), _sessionId.ToString(), s).Wait();
             }
         }
     }
