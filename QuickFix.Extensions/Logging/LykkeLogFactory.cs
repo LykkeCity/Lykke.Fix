@@ -1,6 +1,6 @@
 ﻿using QuickFix;
 
-namespace Lykke.QuickFix.Extensions.Logging
+namespace Lykke.Logging
 {
     /// <inheritdoc />
     public sealed class LykkeLogFactory : ILogFactory
@@ -12,7 +12,7 @@ namespace Lykke.QuickFix.Extensions.Logging
 
         public LykkeLogFactory(global::Common.Log.ILog lykkeLog, bool logIncoming = true, bool logOutgoing = true, bool logEvent = true)
         {
-            this._lykkeLog = lykkeLog;
+            _lykkeLog = lykkeLog;
             _logIncoming = logIncoming;
             _logOutgoing = logOutgoing;
             _logEvent = logEvent;

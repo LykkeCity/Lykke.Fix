@@ -1,7 +1,7 @@
 ﻿using System;
 using Common;
 
-namespace Lykke.QuickFix.Extensions.Logging
+namespace Lykke.Logging
 {
     public interface IFixLogEntityRepository : IStopable
     {

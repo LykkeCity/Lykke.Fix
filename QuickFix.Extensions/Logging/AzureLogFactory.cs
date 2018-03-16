@@ -1,6 +1,6 @@
 ﻿using QuickFix;
 
-namespace Lykke.QuickFix.Extensions.Logging
+namespace Lykke.Logging
 {
     /// <inheritdoc />
     public sealed class AzureLogFactory : ILogFactory

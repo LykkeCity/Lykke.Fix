@@ -6,7 +6,7 @@ using AzureStorage;
 using Common.Log;
 using JetBrains.Annotations;
 
-namespace Lykke.QuickFix.Extensions.Logging
+namespace Lykke.Logging
 {
     [UsedImplicitly]
     internal sealed class FixLogEntityRepository : IFixLogEntityRepository

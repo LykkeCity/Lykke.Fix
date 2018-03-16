@@ -1,4 +1,4 @@
-﻿namespace Lykke.QuickFix.Extensions.Logging
+﻿namespace Lykke.Logging
 {
     public enum FixMessageDirection
     {

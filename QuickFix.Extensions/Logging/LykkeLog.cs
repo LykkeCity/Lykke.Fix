@@ -1,6 +1,6 @@
 ﻿using QuickFix;
 
-namespace Lykke.QuickFix.Extensions.Logging
+namespace Lykke.Logging
 {
     internal sealed class LykkeLog : ILog
     {

@@ -3,7 +3,7 @@ using System.Threading;
 using JetBrains.Annotations;
 using Lykke.AzureStorage.Tables;
 
-namespace Lykke.QuickFix.Extensions.Logging
+namespace Lykke.Logging
 {
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     internal sealed class FixLogEntity : AzureTableEntity

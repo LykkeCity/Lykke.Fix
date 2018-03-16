@@ -7,7 +7,7 @@ using Common.Log;
 using JetBrains.Annotations;
 using Lykke.SettingsReader;
 
-namespace Lykke.QuickFix.Extensions.Logging
+namespace Lykke.Logging
 {
     public static class AutofacExtension
     {
